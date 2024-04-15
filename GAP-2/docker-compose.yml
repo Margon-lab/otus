@@ -60,7 +60,7 @@ services:
     container_name: certbot
     volumes:
       - certbot-etc:/etc/letsencrypt
-      - wordpress:/var/www/html
+      - ./wordpress:/var/www/html
     command: certonly --webroot --webroot-path=/var/www/html --email jomyg@gmail.com --agree-tos --no-eff-email --staging -d jomygeorge.xyz -d www.jomygeorge.xyz
 
   prometheus:
@@ -174,12 +174,12 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./grafanadata:/var/lib/grafana
-      - ./provisioning/datasources/prometheus-datasource:/etc/grafana/provisioning/datasources
-      - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards
-      - ./../../dashboards/victoriametrics.json:/var/lib/grafana/dashboards/vm.json
-      - ./../../dashboards/vmagent.json:/var/lib/grafana/dashboards/vmagent.json
-      - ./../../dashboards/vmalert.json:/var/lib/grafana/dashboards/vmalert.json
+      - ./Grafana/grafanadata:/var/lib/grafana
+      - ./Grafana/provisioning/datasources/prometheus-datasource:/etc/grafana/provisioning/datasources
+      - ./Grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./Grafana/dashboards/victoriametrics.json:/var/lib/grafana/dashboards/vm.json
+      - ./Grafana/dashboards/vmagent.json:/var/lib/grafana/dashboards/vmagent.json
+      - ./Grafana/dashboards/vmalert.json:/var/lib/grafana/dashboards/vmalert.json
     networks:
       - app-network
 
@@ -192,6 +192,10 @@ volumes:
   wordpress:
   dbdata:
   vmdata:
+  wordpress:
+  nginx-conf:
+  blackbox:
+  Grafana:
 
 networks:
   app-network:
